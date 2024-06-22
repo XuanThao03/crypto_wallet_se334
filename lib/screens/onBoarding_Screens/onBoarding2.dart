@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:wallet/config/routes/routes.dart';
 import 'package:wallet/config/themes/app_palette.dart';
 import 'package:wallet/config/themes/media_src.dart';
 
 class Onboarding2 extends StatelessWidget {
-  final VoidCallback onPressed;
+  final VoidCallback onPressed, onBack;
 
-  const Onboarding2({super.key, required this.onPressed});
+  const Onboarding2({super.key, required this.onPressed, required this.onBack});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,7 @@ class Onboarding2 extends StatelessWidget {
         actions: [
           GestureDetector(
             onTap: () {
-              print("Tap");
+              context.pushReplacementNamed(Routes.accessWallet);
             },
             child: Padding(
               padding: EdgeInsets.only(right: 20.w),
@@ -28,9 +30,7 @@ class Onboarding2 extends StatelessWidget {
           ),
         ],
         leading: GestureDetector(
-          onTap: () {
-            print("Tap");
-          },
+          onTap: onBack,
           child: Padding(
               padding: EdgeInsets.only(left: 20.w),
               child: Icon(Icons.arrow_back)),
@@ -46,7 +46,7 @@ class Onboarding2 extends StatelessWidget {
               // color: Colors.amber,
               child: Center(
                 child: SvgPicture.asset(
-                  MediaResource.onBoarding2,
+                  MediaResource.onBoarding2IC,
                   width: 450.w,
                   height: 300.h,
                 ),

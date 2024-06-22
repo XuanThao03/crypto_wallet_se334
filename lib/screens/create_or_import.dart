@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:wallet/config/themes/app_palette.dart';
+import 'package:wallet/config/themes/media_src.dart';
 import 'package:wallet/screens/generate_mnemonic_page.dart';
 import 'package:wallet/screens/import_wallet.dart';
 
@@ -14,35 +17,22 @@ class CreateOrImportPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Header
-            Container(
-              alignment: Alignment.center,
-              child: const Text(
-                'Moralis Wallet',
-                style: TextStyle(
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            const SizedBox(height: 24.0),
-
             // Logo
             Container(
               width: double.infinity,
               alignment: Alignment.center,
               child: SizedBox(
-                width: 150,
-                height: 200,
+                width: 200.w,
+                height: 250.h,
                 child: Image.asset(
-                  'assets/imgs/logo.png',
+                  MediaResource.logoBlack,
                   fit: BoxFit.contain,
                 ),
               ),
             ),
             const SizedBox(height: 50.0),
 
-            // Login button
+            // Create Wallet
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -54,7 +44,7 @@ class CreateOrImportPage extends StatelessWidget {
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor:
-                    Colors.blue, // Customize button background color
+                    AppPalette.primary, // Customize button background color
                 foregroundColor: Colors.white, // Customize button text color
                 padding: const EdgeInsets.all(16.0),
               ),
@@ -68,10 +58,9 @@ class CreateOrImportPage extends StatelessWidget {
 
             const SizedBox(height: 16.0),
 
-            // Register button
+            // Import Walledt
             ElevatedButton(
               onPressed: () {
-                // Add your register logic here
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -85,10 +74,10 @@ class CreateOrImportPage extends StatelessWidget {
                 foregroundColor: Colors.black, // Customize button text color
                 padding: const EdgeInsets.all(16.0),
               ),
-              child: const Text(
+              child: Text(
                 'Import from Seed',
                 style: TextStyle(
-                  fontSize: 18.0,
+                  fontSize: 18.sp,
                 ),
               ),
             ),
@@ -99,7 +88,7 @@ class CreateOrImportPage extends StatelessWidget {
             Container(
               alignment: Alignment.center,
               child: const Text(
-                '© 2023 Moralis. All rights reserved.',
+                '© 2024 SE334. All rights reserved.',
                 style: TextStyle(
                   fontSize: 12.0,
                   color: Colors.grey,

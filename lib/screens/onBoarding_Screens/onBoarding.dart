@@ -32,28 +32,24 @@ class OnBoarding extends StatelessWidget {
                       curve: Curves.decelerate,
                       duration: Duration(milliseconds: 300));
                 },
+                onBack: () {
+                  _controller.animateToPage(0,
+                      curve: Curves.decelerate,
+                      duration: Duration(milliseconds: 300));
+                },
               ),
               Onboarding3(
                 onPressed: () {
                   context.pushReplacementNamed(Routes.accessWallet);
                 },
+                onBack: () {
+                  _controller.animateToPage(1,
+                      curve: Curves.decelerate,
+                      duration: Duration(milliseconds: 300));
+                },
               ),
             ],
           ),
-          // Container(
-          //   alignment: Alignment(0, 0.2),
-          //   child: SmoothPageIndicator(
-          //     controller: _controller,
-          //     count: 3,
-          //     effect: ExpandingDotsEffect(
-          //       activeDotColor: Color(0xFFF1A852),
-          //       dotColor: Color(0XFFE6E6F6),
-          //       dotHeight: 9,
-          //       dotWidth: 9,
-          //       spacing: 10,
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );

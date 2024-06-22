@@ -4,4 +4,5 @@ class Routes {
   static String logIn = 'logIn';
   static String accessWallet = 'accessWallet';
   static String home = 'home';
+  static String importWallet = 'importWallet';
 }
