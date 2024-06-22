@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wallet/config/routes/routes.dart';
 import 'package:wallet/providers/wallet_provider.dart';
 import 'package:wallet/screens/create_or_import.dart';
 import 'package:web3dart/web3dart.dart';
@@ -208,14 +210,15 @@ class _WalletPageState extends State<WalletPage> {
                                   await SharedPreferences.getInstance();
                               await prefs.remove('privateKey');
                               // ignore: use_build_context_synchronously
-                              Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const CreateOrImportPage(),
-                                ),
-                                (route) => false,
-                              );
+                              // Navigator.pushAndRemoveUntil(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) =>
+                              //         const CreateOrImportPage(),
+                              //   ),
+                              //   (route) => false,
+                              // );
+                              context.pushReplacementNamed(Routes.accessWallet);
                             },
                           ),
                         ),

@@ -1,3 +1,5 @@
+import 'package:wallet/screens/onBoarding_Screens/onBoarding1.dart';
+
 class MediaResource {
   const MediaResource._();
 
@@ -7,8 +9,10 @@ class MediaResource {
   //App Icons
   // static const notificationIcon = '$_baseIcons/notificationIcon.svg';
 
-  //Auth Icons
-  // static const showPasswordIcon = '$_baseIcons/showPasswordIcon.svg';
+  //OnBoarding Icons
+  static const onBoarding1 = '$_baseIcons/onBoarding1.svg';
+  static const onBoarding2 = '$_baseIcons/onBoarding2.svg';
+  static const onBoarding3 = '$_baseIcons/onBoarding3.svg';
 
   //Social Icons
 
