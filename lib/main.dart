@@ -1,61 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import "providers/wallet_provider.dart";
+import 'package:wallet/screens/plash_screen.dart';
+import 'providers/wallet_provider.dart';
+import 'package:wallet/core/utils/routes.dart';
+import 'package:wallet/screens/login_page.dart';
 
-void main() {
-  runApp(ChangeNotifierProvider<WalletProvider>(
-    create: (context) => WalletProvider(),
-    child: const MyApp(),
-  ));
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Load the private key
+  WalletProvider walletProvider = WalletProvider();
+  await walletProvider.loadPrivateKey();
+
+  runApp(
+    ChangeNotifierProvider<WalletProvider>.value(
+      value: walletProvider,
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final walletProvider = Provider.of<WalletProvider>(context);
-
     return MaterialApp(
-        title: 'Crypto Wallet',
-        home: Scaffold(
-            appBar: AppBar(
-              title: const Text("Crypto Wallet"),
-              centerTitle: true,
-              backgroundColor: Colors.blue,
-              titleTextStyle: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold),
-            ),
-            body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () async {
-                      final mnemonic = walletProvider.generateMnemonic();
-                      final privateKey =
-                          await walletProvider.getPrivateKey(mnemonic);
-                      final publicKey =
-                          await walletProvider.getPublicKey(privateKey);
-
-                      print("Mnemonic: $mnemonic");
-                      print("Private Key: $privateKey");
-                      print("Public Key: $publicKey");
-                    },
-                    style: const ButtonStyle(
-                      backgroundColor:
-                          WidgetStatePropertyAll<Color>(Colors.blue),
-                    ),
-                    child: const Text(
-                      "Generate Wallet",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  )
-                ],
-              ),
-            )));
+      initialRoute: MyRoutes.loginRoute,
+      routes: {
+        MyRoutes.loginRoute: (context) => const PlashScreen(),
+      },
+    );
   }
 }
