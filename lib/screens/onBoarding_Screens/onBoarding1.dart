@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:wallet/config/routes/routes.dart';
 import 'package:wallet/config/themes/app_palette.dart';
 import 'package:wallet/config/themes/media_src.dart';
 
@@ -15,7 +17,7 @@ class OnBoarding1 extends StatelessWidget {
       appBar: AppBar(actions: [
         GestureDetector(
           onTap: () {
-            print("Tap");
+            context.pushReplacementNamed(Routes.accessWallet);
           },
           child: Padding(
             padding: EdgeInsets.only(right: 20.w),
@@ -36,7 +38,7 @@ class OnBoarding1 extends StatelessWidget {
               // color: Colors.amber,
               child: Center(
                 child: SvgPicture.asset(
-                  MediaResource.onBoarding1,
+                  MediaResource.onBoarding1IC,
                   width: 450.w,
                   height: 300.h,
                 ),

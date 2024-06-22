@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wallet/config/routes/routes.dart';
 import 'package:wallet/screens/create_or_import.dart';
+import 'package:wallet/screens/import_wallet.dart';
 import 'package:wallet/screens/login_page.dart';
 import 'package:wallet/screens/onBoarding_Screens/onBoarding.dart';
 import 'package:wallet/screens/onBoarding_Screens/plash_screen.dart';
@@ -44,6 +45,13 @@ class AppRouter {
         path: '/home',
         pageBuilder: (context, state) => const MaterialPage(
           child: WalletPage(),
+        ),
+      ),
+      GoRoute(
+        name: Routes.importWallet,
+        path: '/importWallet',
+        pageBuilder: (context, state) => const MaterialPage(
+          child: ImportWallet(),
         ),
       ),
     ],

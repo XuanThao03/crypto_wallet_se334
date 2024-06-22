@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wallet/core/common/const/networks.dart';
 import 'package:wallet/screens/wallet.dart';
 import 'package:wallet/providers/wallet_provider.dart';
 
@@ -21,7 +22,9 @@ class _VerifyMnemonicPageState extends State<VerifyMnemonicPage> {
     final walletProvider = Provider.of<WalletProvider>(context, listen: false);
 
     if (verificationText.trim() == widget.mnemonic.trim()) {
-      walletProvider.getPrivateKey(widget.mnemonic).then((privateKey) {
+      walletProvider
+          .getPrivateKey(widget.mnemonic, Networks.sepolia, true)
+          .then((privateKey) {
         setState(() {
           isVerified = true;
         });

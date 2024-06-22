@@ -33,6 +33,7 @@ class _WalletPageState extends State<WalletPage> {
     String? privateKey = prefs.getString('privateKey');
     if (privateKey != null) {
       final walletProvider = WalletProvider();
+
       await walletProvider.loadPrivateKey();
       EthereumAddress address = await walletProvider.getPublicKey(privateKey);
       print(address.hex);
@@ -41,6 +42,7 @@ class _WalletPageState extends State<WalletPage> {
         pvKey = privateKey;
       });
       print(pvKey);
+
       String response = await getBalances(address.hex, 'sepolia');
       dynamic data = json.decode(response);
       String newBalance = data['balance'] ?? '0';
@@ -53,7 +55,7 @@ class _WalletPageState extends State<WalletPage> {
           latestBalance.getValueInUnit(EtherUnit.ether).toString();
 
       setState(() {
-        balance = latestBalanceInEther;
+        balance = latestBalanceInEther.substring(0, 5);
       });
       print("balance $balance");
     }
@@ -209,16 +211,11 @@ class _WalletPageState extends State<WalletPage> {
                               SharedPreferences prefs =
                                   await SharedPreferences.getInstance();
                               await prefs.remove('privateKey');
-                              // ignore: use_build_context_synchronously
-                              // Navigator.pushAndRemoveUntil(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) =>
-                              //         const CreateOrImportPage(),
-                              //   ),
-                              //   (route) => false,
-                              // );
-                              context.pushReplacementNamed(Routes.accessWallet);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => CreateOrImportPage()),
+                              );
                             },
                           ),
                         ),
