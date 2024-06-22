@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:web3_wallet/providers/wallet_provider.dart';
+import 'package:wallet/providers/wallet_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'wallet.dart';

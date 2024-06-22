@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:web3_wallet/providers/wallet_provider.dart';
-import 'package:web3_wallet/pages/wallet.dart';
+import 'package:wallet/providers/wallet_provider.dart';
+import 'package:wallet/screens/wallet.dart';
 
 class ImportWallet extends StatefulWidget {
   const ImportWallet({Key? key}) : super(key: key);
@@ -29,7 +29,7 @@ class _ImportWalletState extends State<ImportWallet> {
 
       // Call the getPrivateKey function from the WalletProvider
       final privateKey = await walletProvider.getPrivateKey(verificationText);
-
+      print("privateK $privateKey");
       // Navigate to the WalletPage
       navigateToWalletPage();
     }

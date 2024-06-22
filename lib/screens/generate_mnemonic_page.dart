@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:web3_wallet/providers/wallet_provider.dart';
-import 'package:web3_wallet/pages/verify_mnemonic_page.dart';
+import 'package:wallet/providers/wallet_provider.dart';
+import 'package:wallet/screens/verify_mnemonic_page.dart';
 
 class GenerateMnemonicPage extends StatelessWidget {
   const GenerateMnemonicPage({Key? key}) : super(key: key);
