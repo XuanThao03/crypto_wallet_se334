@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:wallet/screens/plash_screen.dart';
+import 'package:wallet/config/routes/router.dart';
+import 'package:wallet/screens/onBoarding_Screens/plash_screen.dart';
 import 'providers/wallet_provider.dart';
 import 'package:wallet/core/utils/routes.dart';
 import 'package:wallet/screens/login_page.dart';
@@ -25,11 +27,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      initialRoute: MyRoutes.loginRoute,
-      routes: {
-        MyRoutes.loginRoute: (context) => const PlashScreen(),
-      },
+    return ScreenUtilInit(
+      designSize: const Size(393, 852),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) => child!,
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        // theme: AppTheme.lightThemeMode,
+        routerConfig: AppRouter().router, //router
+      ),
     );
   }
 }
