@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:wallet/config/themes/app_palette.dart';
 import 'package:wallet/providers/wallet_provider.dart';
-import 'package:wallet/screens/verify_mnemonic_page.dart';
+import 'package:wallet/screens/setupWallet_Screens/verify_mnemonic_page.dart';
 
 class GenerateMnemonicPage extends StatelessWidget {
   const GenerateMnemonicPage({Key? key}) : super(key: key);
@@ -38,7 +40,7 @@ class GenerateMnemonicPage extends StatelessWidget {
           children: [
             const Text(
               'Please store this mnemonic phrase safely:',
-              style: TextStyle(fontSize: 18.0),
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 24.0),
             Column(
@@ -59,10 +61,17 @@ class GenerateMnemonicPage extends StatelessWidget {
               onPressed: () {
                 copyToClipboard();
               },
-              icon: const Icon(Icons.copy),
-              label: const Text('Copy to Clipboard'),
+              icon: const Icon(
+                Icons.copy,
+                color: Colors.white,
+              ),
+              label: const Text(
+                'Copy to Clipboard',
+                style: TextStyle(color: Colors.white),
+              ),
               style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 24.0),
+                backgroundColor: AppPalette.primary,
+                padding: EdgeInsets.all(16.w),
                 textStyle: const TextStyle(fontSize: 20.0),
                 elevation: 4,
                 shadowColor: Colors.black.withOpacity(0.4),

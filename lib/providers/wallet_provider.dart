@@ -38,7 +38,7 @@ class WalletProvider extends ChangeNotifier implements WalletAddressService {
   Future<void> setMnemonic(String str) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('mnemonicStr', str);
-    this.mnemonicStr = mnemonicStr;
+    mnemonicStr = str;
     notifyListeners();
   }
 
@@ -63,6 +63,10 @@ class WalletProvider extends ChangeNotifier implements WalletAddressService {
 
     // Set the private key in the shared preferences
     isAccessed ? await setPrivateKey(privateKey) : null;
+    if (!isAccessed) {
+      await setPrivateKey(privateKey);
+      await setMnemonic(mnemonic);
+    }
     return privateKey;
   }
 

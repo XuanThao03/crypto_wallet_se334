@@ -53,8 +53,8 @@ def get_nfts():
     return response
 
 
-@app.route("/get_erc_token", methods=["GET"])
-def get_token():
+@app.route("/get_erc_balance", methods=["GET"])
+def get_erc_token():
     chain = request.args.get("chain")
     address = request.args.get("address")
 
@@ -62,7 +62,45 @@ def get_token():
         "address": address,
         "chain": chain,
     }
-    result =  evm_api.balance.get_native_balances_for_addresses(
+    result = evm_api.token.get_wallet_token_balances(
+        api_key=api_key,
+        params=params,
+    )
+
+    # converting it to json because of unicode characters
+    print(result)
+    return result
+
+@app.route("/get_native_transaction", methods=["GET"])
+def get_native_transaction():
+    address = request.args.get("address")
+    chain = request.args.get("chain")
+
+    params = {
+        "address": address,
+        "chain": chain,
+
+    }
+    result =evm_api.transaction.get_wallet_transactions(
+        api_key=api_key,
+        params=params,
+    )
+
+    # converting it to json because of unicode characters
+    print(result)
+    return result
+
+@app.route("/get_erc_transaction", methods=["GET"])
+def get_erc_transaction():
+    address = request.args.get("address")
+    chain = request.args.get("chain")
+
+    params = {
+        "address": address,
+        "chain": chain,
+
+    }
+    result =evm_api.token.get_wallet_token_transfers(
         api_key=api_key,
         params=params,
     )

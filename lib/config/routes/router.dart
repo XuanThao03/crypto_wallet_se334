@@ -1,11 +1,14 @@
+import 'package:bip39/bip39.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wallet/config/routes/routes.dart';
-import 'package:wallet/screens/create_or_import.dart';
-import 'package:wallet/screens/import_wallet.dart';
-import 'package:wallet/screens/login_page.dart';
+import 'package:wallet/screens/setupWallet_Screens/create_or_import.dart';
+import 'package:wallet/screens/setupWallet_Screens/generate_mnemonic_page.dart';
+import 'package:wallet/screens/setupWallet_Screens/import_wallet.dart';
+import 'package:wallet/screens/setupWallet_Screens/login_page.dart';
 import 'package:wallet/screens/onBoarding_Screens/onBoarding.dart';
 import 'package:wallet/screens/onBoarding_Screens/plash_screen.dart';
+import 'package:wallet/screens/setupWallet_Screens/verify_mnemonic_page.dart';
 import 'package:wallet/screens/wallet.dart';
 
 class AppRouter {
@@ -52,6 +55,22 @@ class AppRouter {
         path: '/importWallet',
         pageBuilder: (context, state) => const MaterialPage(
           child: ImportWallet(),
+        ),
+      ),
+      GoRoute(
+        name: Routes.generateMnemonic,
+        path: '/generateMnemonic',
+        pageBuilder: (context, state) => const MaterialPage(
+          child: GenerateMnemonicPage(),
+        ),
+      ),
+      GoRoute(
+        name: Routes.verifyMnemonic,
+        path: '/verifyMnemonic',
+        pageBuilder: (context, state) => const MaterialPage(
+          child: VerifyMnemonicPage(
+            mnemonic: "",
+          ),
         ),
       ),
     ],

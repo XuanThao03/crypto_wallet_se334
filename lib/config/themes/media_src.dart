@@ -9,6 +9,8 @@ class MediaResource {
   //App Icons
   static const ethereumIC = '$_baseIcons/ethereum.svg';
   static const sepoliaIC = '$_baseIcons/sepolia.svg';
+  static const binanceIC = '$_baseIcons/binanceLogo.svg';
+  static const polygonIC = '$_baseIcons/polygonLogo.svg';
 
   //OnBoarding Icons
   static const onBoarding1IC = '$_baseIcons/onBoarding1.svg';

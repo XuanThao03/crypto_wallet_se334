@@ -39,8 +39,9 @@ class _ImportWalletState extends State<ImportWallet> {
 
       // Call the getPrivateKey function from the WalletProvider
       final privateKey = await walletProvider.getPrivateKey(
-          verificationText, selectedNetwork, true);
+          verificationText, selectedNetwork, false);
       print("privateK $privateKey");
+
       // Navigate to the WalletPage
       navigateToWalletPage();
     }
@@ -48,7 +49,12 @@ class _ImportWalletState extends State<ImportWallet> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Import from Seed'),
-        leading: Icon(Icons.arrow_back),
+        leading: GestureDetector(
+          child: Icon(Icons.arrow_back),
+          onTap: () {
+            context.pop();
+          },
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
@@ -87,7 +93,9 @@ class _ImportWalletState extends State<ImportWallet> {
                       Text(Networks.ethereum),
                     ],
                   ),
-                  onTap: () => selectedNetwork = Networks.ethereum,
+                  onTap: () => setState(() {
+                    selectedNetwork = Networks.ethereum;
+                  }),
                 ),
                 DropdownMenuItem(
                   value: "Sepolia",
@@ -101,7 +109,9 @@ class _ImportWalletState extends State<ImportWallet> {
                       Text(Networks.sepolia),
                     ],
                   ),
-                  onTap: () => selectedNetwork = Networks.sepolia,
+                  onTap: () => setState(() {
+                    selectedNetwork = Networks.ethereum;
+                  }),
                 )
               ],
             ),
@@ -123,7 +133,7 @@ class _ImportWalletState extends State<ImportWallet> {
             ),
             SizedBox(height: 48.h),
             ElevatedButton(
-              onPressed: verifyMnemonic,
+              onPressed: verificationText != "" ? verifyMnemonic : null,
               child: Text(
                 'Import',
                 style: TextStyle(
