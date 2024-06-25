@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wallet/config/themes/app_palette.dart';
 import 'package:wallet/config/themes/media_src.dart';
-import 'package:wallet/screens/generate_mnemonic_page.dart';
-import 'package:wallet/screens/import_wallet.dart';
+import 'package:wallet/screens/setupWallet_Screens/generate_mnemonic_page.dart';
+import 'package:wallet/screens/setupWallet_Screens/import_wallet.dart';
 
 class CreateOrImportPage extends StatelessWidget {
   const CreateOrImportPage({super.key});

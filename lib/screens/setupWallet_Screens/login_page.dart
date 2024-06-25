@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wallet/providers/wallet_provider.dart';
 import 'package:provider/provider.dart';
 
-import 'wallet.dart';
+import '../wallet.dart';
 import 'create_or_import.dart';
 
 class LoginPage extends StatelessWidget {
