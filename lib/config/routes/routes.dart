@@ -7,4 +7,5 @@ class Routes {
   static String importWallet = 'importWallet';
   static String generateMnemonic = 'generateMnemonic';
   static String verifyMnemonic = 'verifyMnemonic';
+  static String settingScreen = 'settingScreen';
 }

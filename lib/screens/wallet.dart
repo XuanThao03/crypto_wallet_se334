@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wallet/components/activity_list.dart';
 import 'package:wallet/components/network_dialog.dart';
 import 'package:wallet/components/token_balances.dart';
 import 'package:wallet/config/routes/routes.dart';
 import 'package:wallet/config/themes/app_palette.dart';
 import 'package:wallet/config/themes/media_src.dart';
 import 'package:wallet/core/common/const/networks.dart';
+import 'package:wallet/core/utils/get_activities.dart';
 import 'package:wallet/providers/wallet_provider.dart';
 import 'package:wallet/screens/setupWallet_Screens/create_or_import.dart';
 import 'package:web3dart/web3dart.dart';
@@ -30,6 +33,7 @@ class _WalletPageState extends State<WalletPage> {
   String pvKey = '';
   Map? chain = {"name": Networks.sepolia, "chain": "sepolia"};
   final List<dynamic> _tkList = [];
+  List<dynamic> _activityList = [];
 
   //Copy to clipboard
   void copyToClipboard() {
@@ -55,6 +59,7 @@ class _WalletPageState extends State<WalletPage> {
 
   Future<void> loadWalletData() async {
     _tkList.clear();
+    _activityList.clear();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? privateKey = prefs.getString('privateKey');
     if (privateKey != null) {
@@ -74,6 +79,7 @@ class _WalletPageState extends State<WalletPage> {
       String response = await getNativeBalances(address.hex, chain!["chain"]);
       dynamic data = json.decode(response);
       String newBalance = data['balance'] ?? '0';
+      print("data native $data");
       // Transform balance from wei to ether
       EtherAmount latestBalance =
           EtherAmount.fromBigInt(EtherUnit.wei, BigInt.parse(newBalance));
@@ -98,11 +104,11 @@ class _WalletPageState extends State<WalletPage> {
       //get ERC balance
       response = await getERCBalances(address.hex, chain!["chain"]);
 
-      var newdata = [];
-      newdata = json.decode(response);
-      print(newdata);
-      for (var i = 0; i < newdata.length; i++) {
-        newBalance = newdata[i]['balance'] ?? '0';
+      var arrayData = [];
+      arrayData = json.decode(response);
+      print(arrayData);
+      for (var i = 0; i < arrayData.length; i++) {
+        newBalance = arrayData[i]['balance'] ?? '0';
         print(newBalance);
         latestBalance =
             EtherAmount.fromBigInt(EtherUnit.wei, BigInt.parse(newBalance));
@@ -115,14 +121,36 @@ class _WalletPageState extends State<WalletPage> {
 
         setState(() {
           _tkList.add({
-            "token": newdata[i]['name'],
+            "token": arrayData[i]['name'],
             "balance": ercBalance,
-            "address": newdata[i]['token_address']
+            "address": arrayData[i]['token_address']
           });
         });
       }
 
       print("balance List $_tkList");
+
+      //Get Activity List
+      response = await getNativeTransaction(address.hex, chain!["chain"]);
+      var nativeData = json.decode(response)["result"];
+      print("arrayData $nativeData");
+
+      response = await getERCTransaction(address.hex, chain!["chain"]);
+      var ercData = json.decode(response)["result"];
+      print("arrayData $ercData");
+
+      setState(() {
+        _activityList = nativeData + ercData;
+        _activityList.sort(
+            (a, b) => b['block_timestamp'].compareTo(a['block_timestamp']));
+      });
+      print("arrayData $_activityList");
+      // response = await getDecodedTransaction(address.hex, chain!["chain"]);
+      // var decodedData = json.decode(response)["result"];
+      // print("arrayDdecodedDataata $decodedData");
+      // setState(() {
+      //   _activityList = decodedData;
+      // });
     }
   }
 
@@ -130,6 +158,17 @@ class _WalletPageState extends State<WalletPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(right: 20.w),
+            child: GestureDetector(
+              child: const Icon(Icons.settings),
+              onTap: () {
+                context.pushReplacementNamed(Routes.settingScreen);
+              },
+            ),
+          )
+        ],
         title: GestureDetector(
           child: Container(
             width: 250.w,
@@ -265,7 +304,7 @@ class _WalletPageState extends State<WalletPage> {
                     tabs: [
                       Tab(text: 'Assets'),
                       Tab(text: 'NFTs'),
-                      Tab(text: 'Options'),
+                      Tab(text: 'Activity'),
                     ],
                   ),
                   Expanded(
@@ -273,8 +312,10 @@ class _WalletPageState extends State<WalletPage> {
                       child: TabBarView(
                         children: [
                           // Assets Tab
-                          TkBalancesList(
-                            tkList: _tkList,
+                          SingleChildScrollView(
+                            child: TkBalancesList(
+                              tkList: _tkList,
+                            ),
                           ),
                           // NFTs Tab
                           SingleChildScrollView(
@@ -282,23 +323,29 @@ class _WalletPageState extends State<WalletPage> {
                                   address: walletAddress, chain: 'sepolia')),
 
                           // Activities Tab
-                          Center(
-                            child: ListTile(
-                              leading: const Icon(Icons.logout),
-                              title: const Text('Logout'),
-                              onTap: () async {
-                                SharedPreferences prefs =
-                                    await SharedPreferences.getInstance();
-                                await prefs.remove('privateKey');
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          CreateOrImportPage()),
-                                );
-                              },
+                          SingleChildScrollView(
+                            child: ActivityList(
+                              activityList: _activityList,
+                              publicKey: walletAddress,
                             ),
                           ),
+                          // Center(
+                          //   child: ListTile(
+                          //     leading: const Icon(Icons.logout),
+                          //     title: const Text('Logout'),
+                          //     onTap: () async {
+                          //       SharedPreferences prefs =
+                          //           await SharedPreferences.getInstance();
+                          //       await prefs.remove('privateKey');
+                          //       Navigator.push(
+                          //         context,
+                          //         MaterialPageRoute(
+                          //             builder: (context) =>
+                          //                 CreateOrImportPage()),
+                          //       );
+                          //     },
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),

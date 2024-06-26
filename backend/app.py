@@ -100,7 +100,26 @@ def get_erc_transaction():
         "chain": chain,
 
     }
-    result =evm_api.token.get_wallet_token_transfers(
+    result =  evm_api.token.get_wallet_token_transfers(
+        api_key=api_key,
+        params=params,
+    )
+
+    # converting it to json because of unicode characters
+    print(result)
+    return result
+
+@app.route("/get_decode_transaction", methods=["GET"])
+def get_decode_transaction():
+    address = request.args.get("address")
+    chain = request.args.get("chain")
+
+    params = {
+        "address": address,
+        "chain": chain,
+
+    }
+    result = evm_api.transaction.get_wallet_transactions_verbose(
         api_key=api_key,
         params=params,
     )

@@ -17,7 +17,9 @@ class MediaResource {
   static const onBoarding2IC = '$_baseIcons/onBoarding2.svg';
   static const onBoarding3IC = '$_baseIcons/onBoarding3.svg';
 
-  //Social Icons
+  //Tranfer Icons
+  static const receiveIC = '$_baseIcons/receiveIcon.svg';
+  static const sendIC = '$_baseIcons/sendIcon.svg';
 
   //Other Icons
 
