@@ -34,7 +34,7 @@ class _TkBanlancesListState extends State<TkBalancesList> {
                     tk['token'],
                     style: TextStyle(
                       fontSize: 20.sp,
-                      fontWeight: FontWeight.w400,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                   Text(

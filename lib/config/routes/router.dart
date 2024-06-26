@@ -2,6 +2,7 @@ import 'package:bip39/bip39.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wallet/config/routes/routes.dart';
+import 'package:wallet/screens/setting_Screens/setting_Screen.dart';
 import 'package:wallet/screens/setupWallet_Screens/create_or_import.dart';
 import 'package:wallet/screens/setupWallet_Screens/generate_mnemonic_page.dart';
 import 'package:wallet/screens/setupWallet_Screens/import_wallet.dart';
@@ -71,6 +72,13 @@ class AppRouter {
           child: VerifyMnemonicPage(
             mnemonic: "",
           ),
+        ),
+      ),
+      GoRoute(
+        name: Routes.settingScreen,
+        path: '/settingScreen',
+        pageBuilder: (context, state) => const MaterialPage(
+          child: SettingScreen(),
         ),
       ),
     ],
