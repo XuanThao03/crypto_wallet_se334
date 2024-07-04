@@ -13,6 +13,7 @@ import 'package:wallet/config/themes/media_src.dart';
 import 'package:wallet/core/common/const/networks.dart';
 import 'package:wallet/core/utils/get_activities.dart';
 import 'package:wallet/providers/wallet_provider.dart';
+import 'package:wallet/screens/setting_Screens/setting_Screen.dart';
 import 'package:wallet/screens/setupWallet_Screens/create_or_import.dart';
 import 'package:web3dart/web3dart.dart';
 import 'package:wallet/core/utils/get_balances.dart';
@@ -160,11 +161,15 @@ class _WalletPageState extends State<WalletPage> {
       appBar: AppBar(
         actions: [
           Padding(
-            padding: EdgeInsets.only(right: 20.w),
+            padding: EdgeInsets.all(20.w),
             child: GestureDetector(
               child: const Icon(Icons.settings),
               onTap: () {
-                context.pushReplacementNamed(Routes.settingScreen);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SettingScreen()),
+                );
               },
             ),
           )

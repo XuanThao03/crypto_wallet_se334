@@ -11,7 +11,7 @@ class PlashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future.delayed(
-      const Duration(seconds: 1),
+      const Duration(seconds: 3),
       () {
         final walletProvider =
             Provider.of<WalletProvider>(context, listen: false);
@@ -28,7 +28,7 @@ class PlashScreen extends StatelessWidget {
 
     return Scaffold(
       body: Container(
-        color: Colors.yellow[700],
+        color: Color(0xFFFBC02D),
         child: Center(
           child: Image.asset(
             MediaResource.logoBlack,
